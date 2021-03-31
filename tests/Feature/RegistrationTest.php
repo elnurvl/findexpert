@@ -46,4 +46,25 @@ class RegistrationTest extends TestCase
         $this->assertEquals($url, Auth::user()->website);
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
+
+    public function test_website_should_be_valid_url()
+    {
+        // Arrange
+        Event::fake();
+        $url = 'invalid url';
+
+        // Act
+        $response = $this->post('/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'website' => $url,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
+        ]);
+
+        // Assert
+
+        $response->assertStatus(302);
+    }
 }
