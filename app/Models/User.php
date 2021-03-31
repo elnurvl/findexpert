@@ -27,7 +27,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'website'
+        'website',
+        'failed_to_reach',
+        'no_topic'
     ];
 
     /**
@@ -49,6 +51,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'failed_to_reach' => 'boolean',
+        'no_topic' => 'boolean'
     ];
 
     /**

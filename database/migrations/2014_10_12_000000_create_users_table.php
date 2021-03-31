@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('website')->nullable();
             $table->string('shortening')->nullable();
+            $table->boolean('failed_to_reach')->nullable();
+            $table->boolean('no_topic')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
