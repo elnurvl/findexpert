@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Listeners\PullHeadings;
+use App\Listeners\ShortenUrl;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +19,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            PullHeadings::class,
+            ShortenUrl::class
         ],
     ];
 
