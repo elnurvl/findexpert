@@ -41,10 +41,10 @@ class PullHeadings implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param object $event
+     * @param Registered $event
      * @return void
      */
-    public function handle($event)
+    public function handle(Registered $event)
     {
         $headings = collect();
 

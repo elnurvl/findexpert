@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password',
         'website',
         'failed_to_reach',
-        'no_topic'
+        'no_topic',
+        'shortening'
     ];
 
     /**
