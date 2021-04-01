@@ -30,7 +30,7 @@ class RegistrationTest extends TestCase
         $url = 'http://devadamlar.com';
 
         // Act
-        $response = $this->post('/register', [
+        $response = $this->postJson('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'website' => $url,
@@ -44,7 +44,6 @@ class RegistrationTest extends TestCase
         Event::assertListening(Registered::class, PullHeadings::class);
         $this->assertAuthenticated();
         $this->assertEquals($url, Auth::user()->website);
-        $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
     public function test_website_should_be_valid_url()
@@ -54,7 +53,7 @@ class RegistrationTest extends TestCase
         $url = 'invalid url';
 
         // Act
-        $response = $this->post('/register', [
+        $response = $this->postJson('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'website' => $url,
@@ -65,6 +64,6 @@ class RegistrationTest extends TestCase
 
         // Assert
 
-        $response->assertStatus(302);
+        $response->assertStatus(422);
     }
 }

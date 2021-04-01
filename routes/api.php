@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -38,3 +39,7 @@ Route::post('/sanctum/token', function (Request $request) {
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
+
+Route::middleware('auth:sanctum')->resource('users', UserController::class)->only(['index', 'show']);
+Route::middleware('auth:sanctum')->get('users/{user}/friends', [UserController::class, 'getFriends']);
+Route::middleware('auth:sanctum')->post('users/{user}/add-friend', [UserController::class, 'addFriend']);
