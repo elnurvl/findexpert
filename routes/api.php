@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,3 +44,5 @@ Route::post('/sanctum/token', function (Request $request) {
 Route::middleware('auth:sanctum')->resource('users', UserController::class)->only(['index', 'show']);
 Route::middleware('auth:sanctum')->get('users/{user}/friends', [UserController::class, 'getFriends']);
 Route::middleware('auth:sanctum')->post('users/{user}/add-friend', [UserController::class, 'addFriend']);
+
+Route::middleware('auth:sanctum')->get('users/{user}/topics', [TopicController::class, 'index']);

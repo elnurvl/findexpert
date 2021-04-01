@@ -24,7 +24,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($users[1])->getJson('/api/users');
 
         // Assert
-        $unauthorizedResponse->assertStatus(401);
+        $unauthorizedResponse->assertUnauthorized();
         $response->assertOk()->assertJson(['data' => UserResource::collection(User::withCount('friends')->get())->resolve()]);
         $this->assertEquals(1, $response['data'][0]['total_friends']);
     }
@@ -39,7 +39,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($users[0])->getJson("api/users/{$users[1]->id}");
 
         // Assert
-        $unauthorizedResponse->assertStatus(401);
+        $unauthorizedResponse->assertUnauthorized();
         $response->assertOk()->assertJson((new UserResource($users[1]))->resolve());
     }
 
@@ -54,7 +54,7 @@ class UserTest extends TestCase
         $secondResponse = $this->actingAs($users[0])->postJson("api/users/{$users[1]->id}/add-friend");
 
         // Assert
-        $unauthorizedResponse->assertStatus(401);
+        $unauthorizedResponse->assertUnauthorized();
         $response->assertOk();
         $secondResponse->assertStatus(400);
         $this->assertDatabaseHas('friendships', [
@@ -83,7 +83,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($user)->getJson("api/users/{$user->id}/friends");
 
         // Assert
-        $unauthorizedResponse->assertStatus(401);
+        $unauthorizedResponse->assertUnauthorized();
         $response
             ->assertOk()
             ->assertJson(['data' => UserResource::collection($user->friends()->withCount('friends')->get())->resolve()]);
