@@ -46,3 +46,4 @@ Route::middleware('auth:sanctum')->get('users/{user}/friends', [UserController::
 Route::middleware('auth:sanctum')->post('users/{user}/add-friend', [UserController::class, 'addFriend']);
 
 Route::middleware('auth:sanctum')->get('users/{user}/topics', [TopicController::class, 'index']);
+Route::middleware('auth:sanctum')->get('topics/search', [TopicController::class, 'search']);
