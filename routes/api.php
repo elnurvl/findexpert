@@ -43,6 +43,7 @@ Route::post('/sanctum/token', function (Request $request) {
 
 Route::middleware('auth:sanctum')->resource('users', UserController::class)->only(['index', 'show']);
 Route::middleware('auth:sanctum')->get('users/{user}/friends', [UserController::class, 'getFriends']);
+Route::middleware('auth:sanctum')->get('users/{user}/network', [UserController::class, 'network']);
 Route::middleware('auth:sanctum')->post('users/{user}/add-friend', [UserController::class, 'addFriend']);
 
 Route::middleware('auth:sanctum')->get('users/{user}/topics', [TopicController::class, 'index']);

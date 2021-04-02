@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Listeners\PullHeadings;
 use App\Listeners\ShortenUrl;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +43,15 @@ class RegistrationTest extends TestCase
         Event::assertListening(Registered::class, PullHeadings::class);
         $this->assertAuthenticated();
         $this->assertEquals($url, Auth::user()->website);
+
+        $result = $this->neo4jClient->run(<<<'CYPHER'
+MATCH (u:User)
+WHERE u.id = $id
+RETURN u
+CYPHER,
+            ['id' => auth()->id()]
+        );
+        $this->assertNotEmpty($result);
     }
 
     public function test_website_should_be_valid_url()

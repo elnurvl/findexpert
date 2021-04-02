@@ -132,6 +132,19 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/paquettg/php-html-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/php-enum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/timacdonald/log-fake" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laudis/neo4j-php-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laudis/typed-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/stream-filter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/stefanak-michal/bolt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-ds/php-ds" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/discovery" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7-server" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kriswallsmith/buzz" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/options-resolver" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

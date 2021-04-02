@@ -125,6 +125,19 @@
       <path value="$PROJECT_DIR$/vendor/paquettg/php-html-parser" />
       <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
       <path value="$PROJECT_DIR$/vendor/timacdonald/log-fake" />
+      <path value="$PROJECT_DIR$/vendor/laudis/neo4j-php-client" />
+      <path value="$PROJECT_DIR$/vendor/laudis/typed-enum" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/vendor/stefanak-michal/bolt" />
+      <path value="$PROJECT_DIR$/vendor/php-ds/php-ds" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/psr7-server" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
+      <path value="$PROJECT_DIR$/vendor/kriswallsmith/buzz" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

@@ -18,7 +18,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'website' => $this->website,
             'shortening' => $this->shortening,
-            'total_friends' => $this->friends_count
+            'total_friends' => $this->friends_count,
+            'network' => $this->network != null ? UserResource::collection($this->network) : null
         ];
     }
 }
