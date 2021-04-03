@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Scopes\IsFriendScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,7 +55,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'failed_to_reach' => 'boolean',
-        'no_topic' => 'boolean'
+        'no_topic' => 'boolean',
+        'is_friend' => 'boolean'
     ];
 
     /**
@@ -64,6 +68,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    protected static function booted()
+    {
+        static::addGlobalScope(new IsFriendScope);
+    }
+
     public function topics()
     {
         return $this->hasMany(Topic::class);
@@ -72,5 +81,16 @@ class User extends Authenticatable
     public function friends()
     {
         return $this->belongsToMany(User::class, 'friendships', 'friend_id');
+    }
+
+    public function scopeWithIsFriend(Builder $builder)
+    {
+        $builder->addSelect([
+            'is_friend' => DB::table('friendships')
+                ->selectRaw("COUNT(*)")
+                ->where('user_id', auth()->id())
+                ->whereColumn('friend_id', 'users.id')
+                ->limit(1)
+        ]);
     }
 }

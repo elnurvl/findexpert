@@ -52,6 +52,7 @@ class TopicTest extends TestCase
         attachUser($users[6], $users[2]);
         attachUser($users[2], $users[6]);
 
+        $users[2]->is_friend = true;
         $users[6]->network = collect([$users[10], $users[2], clone $users[6]]);
 
         $searchResults = collect([$users[0], $users[1], $users[6], $users[7]]);

@@ -51,6 +51,7 @@ class UserTest extends TestCase
         $unauthorizedResponse->assertUnauthorized();
         $response->assertOk()->assertJson(['data' => UserResource::collection(User::withCount('friends')->get())->resolve()]);
         $this->assertEquals(1, $response['data'][0]['total_friends']);
+        $this->assertTrue($response['data'][0]['is_friend']);
     }
 
     public function test_show_should_return_specified_user()
