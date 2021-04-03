@@ -1,62 +1,42 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+This is an API service that can be consumed by an SPA or a mobile app.
+The repository does not contain any code related to the front-end. See client repository if you are looking for the source of the SPA and the mobile app.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Get Started
+First, make sure you have a PHP 8.0 server, and a MYSQL database running (e.g. *XAMPP*, an all-in-one solution).
+To set up the project in a local environment, first rename the `.env.example` file to `.env`. After filling in the db credentials in the `.env` file run the following commands one by one:
 
-## About Laravel
+    composer install
+    composer dump-autoload
+    npm install
+    php artisan key:generate
+    php artisan migrate
+    php artisan serve
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Database
+This application uses Neo4j graph database along with MYSQL to get connections between users in a more optimal way.
+Refer [here](https://neo4j.com/news/how-much-faster-is-a-graph-database-really/) to see the benchmark comparison.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Install neo4j in your local machine before running the app. Refer to [this page](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-neo4j-on-ubuntu-20-04) for more information.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    sudo apt update
+    sudo apt install apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+    sudo add-apt-repository "deb https://debian.neo4j.com stable 4.1"
+    sudo apt install neo4j
+    sudo systemctl enable neo4j.service
+Do not forget to fill in the db credentials in the `.env` file afterwards.
 
-## Learning Laravel
+#### Neo4j Client
+laudis/neo4j-php-client library is used to run CYPHER queries. However, it seems there is a bug in the library making it impossible to make changes on the database. The framework's HTTP client is used to execute those queries.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Why is this in the `additional` branch?
+It took some time for me to find a reliable php client for the graph database. Despite I still had issues with it, it is the one library I found that is still maintained. 
+### URL Shortener
+Cutt.ly is a simple URL shortening service. Make sure you signed up in their website and acquired an API key. Add the API key to the `.env` file.
+#### Why is this in the `additional` branch?
+At the time of writing the code goo.gl service was shut down. Therefore, I had to find a simple and free alternative before starting to work on this feature.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Planned features
+- [ ] Users can remove friends
+- [ ] Users can fetch topics manually in case there was a change in their websites, or a failure in previous attempts
+- [ ] Users can update the URL shortenings for their websites
