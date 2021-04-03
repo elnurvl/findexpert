@@ -89,4 +89,19 @@ class ShortenUrlTest extends TestCase
         // Assert
         Log::assertLogged('error');
     }
+
+    public function test_listener_is_not_executed_if_user_has_no_website()
+    {
+        // Arrange
+        Http::fake();
+        $user = User::factory()->create([
+            'website' => null
+        ]);
+
+        // Act
+        $this->listener->handle(new Registered($user));
+
+        // Assert
+        Http::assertNothingSent();
+    }
 }

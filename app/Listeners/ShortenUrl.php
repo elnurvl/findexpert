@@ -33,6 +33,8 @@ class ShortenUrl implements ShouldQueue
      */
     public function handle(Registered $event)
     {
+        if ($event->user->website == null) return;
+
         try {
             $response = Http::retry(3, $this->waitFor)->get(getenv('CUTTLY_API_URL'), [
                 'short' => $event->user->website,

@@ -46,6 +46,8 @@ class PullHeadings implements ShouldQueue
      */
     public function handle(Registered $event)
     {
+        if ($event->user->website == null) return;
+
         $headings = collect();
 
         // Send a request to the url. Notify user if it cannot be reached
