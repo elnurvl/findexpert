@@ -13,6 +13,10 @@ class AuthenticationTest extends TestCase
 
     public function test_login_screen_can_be_rendered()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         $response = $this->get('/login');
 
         $response->assertStatus(200);
@@ -20,6 +24,10 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         $user = User::factory()->create();
 
         $response = $this->post('/login', [

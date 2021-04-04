@@ -14,6 +14,10 @@ class PasswordResetTest extends TestCase
 
     public function test_reset_password_link_screen_can_be_rendered()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         $response = $this->get('/forgot-password');
 
         $response->assertStatus(200);
@@ -34,6 +38,10 @@ class PasswordResetTest extends TestCase
 
     public function test_reset_password_screen_can_be_rendered()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         Notification::fake();
 
         $user = User::factory()->create();

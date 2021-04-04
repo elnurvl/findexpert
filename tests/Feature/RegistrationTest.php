@@ -25,6 +25,10 @@ class RegistrationTest extends TestCase
 
     public function test_registration_screen_can_be_rendered()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         $response = $this->get('/register');
 
         $response->assertStatus(200);
