@@ -78,6 +78,12 @@ class PullHeadingsTest extends TestCase
             'content' => 'Laravel framework',
             'tag' => 'h3'
         ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'no_topic' => false,
+            'failed_to_reach' => false
+        ]);
     }
 
     public function test_remember_if_the_site_cannot_be_reached()

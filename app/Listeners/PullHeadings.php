@@ -50,9 +50,12 @@ class PullHeadings implements ShouldQueue
 
         $headings = collect();
 
+        $userAttr = [];
+
         // Send a request to the url. Notify user if it cannot be reached
         try {
             $response = Http::retry(3, $this->waitFor)->get($event->user->website);
+            $userAttr['failed_to_reach'] = false;
         } catch (RequestException $e) {
             $event->user->update([
                 'failed_to_reach' => true
@@ -102,10 +105,11 @@ class PullHeadings implements ShouldQueue
         // If there are no heading tag in the HTML, notify the user
         if ($headings->isNotEmpty()) {
             $event->user->topics()->saveMany($headings);
+            $userAttr['no_topic'] = false;
         } else {
-            $event->user->update([
-                'no_topic' => true
-            ]);
+            $userAttr['no_topic'] = true;
         }
+
+        $event->user->update($userAttr);
     }
 }
