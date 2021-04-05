@@ -54,6 +54,17 @@ class UserTest extends TestCase
         $this->assertTrue($response['data'][0]['is_friend']);
     }
 
+    public function test_should_return_auth_user()
+    {
+        // Arrange
+        $user = User::factory()->create();
+        // Act
+        $response = $this->actingAs($user)->getJson('api/user');
+        // Assert
+        $response->assertExactJson((new UserResource($user))->resolve());
+
+    }
+
     public function test_show_should_return_specified_user()
     {
         // Arrange

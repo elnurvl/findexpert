@@ -21,7 +21,7 @@ use Illuminate\Validation\ValidationException;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return new UserResource($request->user());
+    return new UserResource($request->user()->fresh());
 });
 
 Route::post('/sanctum/token', function (Request $request) {
