@@ -254,19 +254,20 @@ components:
               format: uri
               nullable: true
             links:
-              type: object
-              required:
-                - label
-                - active
-              properties:
-                url:
-                  type: string
-                  format: uri
-                  nullable: true
-                label:
-                  type: string
-                active:
-                  type: boolean
+              type: array
+              items:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    nullable: true
+                  label:
+                    type: string
+                  active:
+                    type: boolean
+                required:
+                  - label
+                  - active
             total:
               type: integer
             per_page:
