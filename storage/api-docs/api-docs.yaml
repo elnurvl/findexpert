@@ -1,0 +1,313 @@
+openapi: 3.0.0
+info:
+  title: api-docs
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/users:
+    parameters: []
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      operationId: get-users-userId
+      description: Get all users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/user:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      operationId: get-api-user
+      description: Get authenticated user details
+  /api/topics/search:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      operationId: get-api-search
+    parameters: []
+  '/api/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      operationId: get-api-users-id
+  /api/sanctum/token:
+    post:
+      summary: ''
+      operationId: post-api-sanctum-token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    type: object
+                required:
+                  - message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                device_name:
+                  type: string
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples:
+        Elnur Hajiyev:
+          id: 0
+          name: Elnur Hajiyev
+          email: user@example.com
+          email_verified_at: '2019-08-24T14:15:22Z'
+          website: 'http://example.com'
+          shortening: 'http://example.com'
+          failed_to_reach: true
+          no_topic: true
+          total_friends: 1
+          is_friend: true
+          picture: 'http://example.com'
+          network:
+            - id: 0
+              name: Parviz Hajiyev
+              email: user@example.com
+              email_verified_at: '2019-08-24T14:15:22Z'
+              website: 'http://example.com'
+              shortening: 'http://example.com'
+              failed_to_reach: true
+              no_topic: true
+              total_friends: 1
+              is_friend: false
+              picture: 'http://example.com'
+              registered_at: '2019-08-24T14:15:22Z'
+          registered_at: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        email_verified_at:
+          type: string
+          description: Set to true if the user's email has been verified.
+          format: date-time
+        website:
+          type: string
+          format: uri
+        shortening:
+          type: string
+          format: uri
+        failed_to_reach:
+          type: boolean
+        no_topic:
+          type: boolean
+        total_friends:
+          type: integer
+        is_friend:
+          type: boolean
+        picture:
+          type: string
+          format: uri
+        network:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        registered_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - total_friends
+        - is_friend
+        - picture
+        - registered_at
+    Users:
+      title: Users
+      type: object
+      x-examples:
+        Empty users:
+          data: []
+          meta:
+            current_page: 0
+            from: 0
+            to: 0
+            last_page: 0
+            path: 'http://example.com'
+            links:
+              url: 'http://example.com'
+              label: string
+              active: true
+            total: 0
+            per_page: 0
+          links:
+            first: 'http://example.com'
+            last: 'http://example.com'
+            prev: 'http://example.com'
+            next: 'http://example.com'
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        meta:
+          type: object
+          required:
+            - current_page
+            - from
+            - to
+            - last_page
+            - path
+            - links
+            - total
+            - per_page
+          properties:
+            current_page:
+              type: integer
+            from:
+              type: integer
+            to:
+              type: integer
+            last_page:
+              type: integer
+            path:
+              type: string
+              format: uri
+            links:
+              type: object
+              required:
+                - label
+                - active
+              properties:
+                url:
+                  type: string
+                  format: uri
+                label:
+                  type: string
+                active:
+                  type: boolean
+            total:
+              type: integer
+            per_page:
+              type: integer
+        links:
+          type: object
+          required:
+            - first
+            - last
+          properties:
+            first:
+              type: string
+              format: uri
+            last:
+              type: string
+              format: uri
+            prev:
+              type: string
+              format: uri
+            next:
+              type: string
+              format: uri
+      required:
+        - data
+        - meta
+        - links
+    Topic:
+      title: Topic
+      type: object
+      properties:
+        content:
+          type: string
+        tag:
+          type: string
+      required:
+        - content
+        - tag
+  responses:
+    Unauthorized:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+        application/xml:
+          schema:
+            type: object
+            properties: {}
