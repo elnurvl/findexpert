@@ -13,6 +13,10 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_confirm_password_screen_can_be_rendered()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         $user = Features::hasTeamFeatures()
                         ? User::factory()->withPersonalTeam()->create()
                         : User::factory()->create();
@@ -24,6 +28,10 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_can_be_confirmed()
     {
+        if (!in_array('web', config('fortify.middleware'))) {
+            $this->markTestSkipped('Fortify uses the api middleware');
+        }
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('/user/confirm-password', [

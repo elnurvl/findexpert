@@ -11,8 +11,26 @@ To set up the project in a local environment, first rename the `.env.example` fi
     php artisan key:generate
     php artisan migrate
     php artisan serve
-## Additional features
-Checkout into the `additional` branch if you want to see user connections in the search results and utilize a URL shortener.
+
+### Database
+This application uses Neo4j graph database along with MYSQL to get connections between users in a more optimal way.
+Refer [here](https://neo4j.com/news/how-much-faster-is-a-graph-database-really/) to see the benchmark comparison.
+
+Install neo4j in your local machine before running the app. Refer to [this page](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-neo4j-on-ubuntu-20-04) for more information.
+
+    sudo apt update
+    sudo apt install apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+    sudo add-apt-repository "deb https://debian.neo4j.com stable 4.1"
+    sudo apt install neo4j
+    sudo systemctl enable neo4j.service
+Finally, set the Neo4j password with the `cypher shell` command. Note that the default user name and password is `neo4j/neo4j` Do not forget to fill in the db credentials in the `.env` file afterwards.
+
+#### Neo4j Client
+laudis/neo4j-php-client library is used to run CYPHER queries. However, it seems there is a bug in the library making it impossible to make changes on the database. The framework's HTTP client is used to execute those queries.
+
+### URL Shortener
+Cutt.ly is a simple URL shortening service. Make sure you signed up in their website and acquired an API key. Add the API key to the `.env` file.
 
 ## Planned features
 - [ ] Users can remove friends

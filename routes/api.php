@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ use Illuminate\Validation\ValidationException;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return new UserResource($request->user()->fresh());
 });
 
 Route::post('/sanctum/token', function (Request $request) {
@@ -43,6 +44,7 @@ Route::post('/sanctum/token', function (Request $request) {
 
 Route::middleware('auth:sanctum')->resource('users', UserController::class)->only(['index', 'show']);
 Route::middleware('auth:sanctum')->get('users/{user}/friends', [UserController::class, 'getFriends']);
+Route::middleware('auth:sanctum')->get('users/{user}/network', [UserController::class, 'network']);
 Route::middleware('auth:sanctum')->post('users/{user}/add-friend', [UserController::class, 'addFriend']);
 
 Route::middleware('auth:sanctum')->get('users/{user}/topics', [TopicController::class, 'index']);

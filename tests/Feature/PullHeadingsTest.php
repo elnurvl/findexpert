@@ -78,6 +78,12 @@ class PullHeadingsTest extends TestCase
             'content' => 'Laravel framework',
             'tag' => 'h3'
         ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'no_topic' => false,
+            'failed_to_reach' => false
+        ]);
     }
 
     public function test_remember_if_the_site_cannot_be_reached()
@@ -98,9 +104,7 @@ class PullHeadingsTest extends TestCase
     public function test_remember_if_site_had_not_any_headings()
     {
         // Arrange
-        Http::fake([
-            '*' => Http::response("", 200)
-        ]);
+        Http::fake();
         // Act
         $this->listener->handle(new Registered($this->user));
         // Assert
@@ -108,5 +112,18 @@ class PullHeadingsTest extends TestCase
             'id' => $this->user->id,
             'no_topic' => true
         ]);
+    }
+
+    public function test_listener_is_not_executed_if_user_has_no_website()
+    {
+        // Arrange
+        Http::fake();
+        $this->user->website = null;
+
+        // Act
+        $this->listener->handle(new Registered($this->user));
+
+        // Assert
+        Http::assertNothingSent();
     }
 }
