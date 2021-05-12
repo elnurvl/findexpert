@@ -162,18 +162,24 @@ components:
           type: string
           description: Set to true if the user's email has been verified.
           format: date-time
+          nullable: true
         website:
           type: string
           format: uri
+          nullable: true
         shortening:
           type: string
           format: uri
+          nullable: true
         failed_to_reach:
           type: boolean
+          nullable: true
         no_topic:
           type: boolean
+          nullable: true
         total_friends:
           type: integer
+          nullable: true
         is_friend:
           type: boolean
         picture:
@@ -181,6 +187,7 @@ components:
           format: uri
         network:
           type: array
+          nullable: true
           items:
             $ref: '#/components/schemas/User'
         registered_at:
@@ -245,6 +252,7 @@ components:
             path:
               type: string
               format: uri
+              nullable: true
             links:
               type: object
               required:
@@ -254,6 +262,7 @@ components:
                 url:
                   type: string
                   format: uri
+                  nullable: true
                 label:
                   type: string
                 active:
@@ -277,9 +286,11 @@ components:
             prev:
               type: string
               format: uri
+              nullable: true
             next:
               type: string
               format: uri
+              nullable: true
       required:
         - data
         - meta
