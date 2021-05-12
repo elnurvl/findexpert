@@ -24,17 +24,13 @@ Install neo4j in your local machine before running the app. Refer to [this page]
     sudo add-apt-repository "deb https://debian.neo4j.com stable 4.1"
     sudo apt install neo4j
     sudo systemctl enable neo4j.service
-Do not forget to fill in the db credentials in the `.env` file afterwards.
+Finally, set the Neo4j password with the `cypher shell` command. Note that the default user name and password is `neo4j/neo4j` Do not forget to fill in the db credentials in the `.env` file afterwards.
 
 #### Neo4j Client
 laudis/neo4j-php-client library is used to run CYPHER queries. However, it seems there is a bug in the library making it impossible to make changes on the database. The framework's HTTP client is used to execute those queries.
 
-#### Why is this in the `additional` branch?
-It took some time for me to find a reliable php client for the graph database. Despite I still had issues with it, it is the one library I found that is still maintained. 
 ### URL Shortener
 Cutt.ly is a simple URL shortening service. Make sure you signed up in their website and acquired an API key. Add the API key to the `.env` file.
-#### Why is this in the `additional` branch?
-At the time of writing the code goo.gl service was shut down. Therefore, I had to find a simple and free alternative before starting to work on this feature.
 
 ## Planned features
 - [ ] Users can remove friends
