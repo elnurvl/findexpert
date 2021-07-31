@@ -2,6 +2,10 @@ openapi: 3.0.0
 info:
   title: Find Expert API
   version: '1.0.0'
+  contact:
+    name: Dev Adamlar LLC
+    url: 'https://devadamlar.com'
+    email: admin@devadamlar.com
 servers:
   - url: 'http://localhost:3000'
 paths:
