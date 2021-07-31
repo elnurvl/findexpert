@@ -109,7 +109,7 @@ paths:
             schema:
               type: object
               properties:
-                email:
+                username:
                   type: string
                   format: email
                 password:
